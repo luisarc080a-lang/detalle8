@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Abdy 💙</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --sapphire: #0a2a7a; --sapphire-mid: #1a4ab8; --sapphire-light: #5090f0;
+    --gold: #C9A96E; --accent-violet: #4a20a0;
+  }
+  html, body { width: 100%; overflow-x: hidden; }
+  body { background: #edf1ff; font-family: 'Cormorant Garamond', serif; min-height: 100vh; }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background: radial-gradient(ellipse 70% 55% at 15% 8%, #c8d8ff88 0%, transparent 55%),
+                radial-gradient(ellipse 60% 70% at 85% 92%, #b0c4ff77 0%, transparent 55%),
+                radial-gradient(ellipse 50% 50% at 50% 50%, #e8eeffaa 0%, transparent 65%);
+    pointer-events: none; z-index: 0;
+  }
+  .petals-container { position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
+  .petal { position: absolute; top: -50px; opacity: 0; animation: fall linear infinite; }
+  @keyframes fall {
+    0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+    5%   { opacity: 0.65; }
+    50%  { transform: translateY(55vh) rotate(360deg) translateX(20px); opacity: 0.5; }
+    100% { transform: translateY(115vh) rotate(720deg) translateX(-15px); opacity: 0; }
+  }
+  .page {
+    position: relative; z-index: 2; min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 28px 20px 60px;
+  }
+  .top-ornament {
+    font-size: 1rem; letter-spacing: 0.55em; color: var(--gold); text-transform: uppercase;
+    opacity: 0; animation: fadeUp 1s ease forwards 0.2s; margin-bottom: 4px; font-weight: 300;
+  }
+  .bouquet-wrap {
+    width: min(520px, 96vw);
+    opacity: 0; animation: fadeUp 1s ease forwards 0.4s;
+    filter: drop-shadow(0 16px 40px rgba(20,60,160,0.2));
+  }
+  .title-block { text-align: center; opacity: 0; animation: fadeUp 1s ease forwards 1s; margin-top: 2px; }
+  .title-main {
+    font-family: 'Playfair Display', serif; font-size: clamp(2.4rem, 7vw, 4.2rem);
+    font-style: italic; color: var(--sapphire); line-height: 1.1;
+    text-shadow: 0 2px 24px rgba(26,74,184,0.15);
+  }
+  .title-main span { color: var(--accent-violet); }
+  .divider {
+    display: flex; align-items: center; gap: 14px; margin: 16px 0 14px;
+    opacity: 0; animation: fadeUp 1s ease forwards 1.3s;
+  }
+  .divider-line { width: 80px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold)); }
+  .divider-line.right { background: linear-gradient(90deg, var(--gold), transparent); }
+  .divider-diamond { width: 8px; height: 8px; background: var(--gold); transform: rotate(45deg); }
+  .message-card {
+    max-width: 520px; width: 100%; background: rgba(255,255,255,0.80);
+    backdrop-filter: blur(14px); border: 1px solid rgba(26,74,184,0.2); border-radius: 2px;
+    padding: 30px 38px; text-align: center; position: relative;
+    opacity: 0; animation: fadeUp 1s ease forwards 1.6s;
+    box-shadow: 0 4px 32px rgba(26,74,184,0.07);
+  }
+  .message-card::before, .message-card::after {
+    content: ''; position: absolute; width: 22px; height: 22px;
+    border-color: var(--gold); border-style: solid; opacity: 0.5;
+  }
+  .message-card::before { top: 9px; left: 9px; border-width: 1px 0 0 1px; }
+  .message-card::after  { bottom: 9px; right: 9px; border-width: 0 1px 1px 0; }
+  .message-text { font-size: clamp(1.05rem, 2.4vw, 1.2rem); color: #1a2a5a; line-height: 1.9; font-weight: 300; }
+  .message-text em { color: var(--sapphire-mid); font-style: italic; font-size: 1.1em; }
+  .date-badge {
+    margin-top: 20px; display: inline-flex; align-items: center; gap: 10px;
+    font-size: 0.78rem; letter-spacing: 0.45em; text-transform: uppercase; color: var(--gold);
+    opacity: 0; animation: fadeUp 1s ease forwards 2s;
+  }
+  .date-dot { width: 4px; height: 4px; background: var(--sapphire-light); border-radius: 50%; }
+  #music-btn {
+    position: fixed; bottom: 22px; right: 22px; width: 46px; height: 46px; border-radius: 50%;
+    background: rgba(255,255,255,0.88); backdrop-filter: blur(10px);
+    border: 1px solid rgba(26,74,184,0.25); box-shadow: 0 4px 20px rgba(26,74,184,0.18);
+    cursor: pointer; font-size: 1.3rem; color: var(--sapphire);
+    display: flex; align-items: center; justify-content: center; z-index: 999;
+    transition: transform 0.2s; opacity: 0; animation: fadeUp 1s ease forwards 2.5s;
+  }
+  #music-btn:hover { transform: scale(1.12); }
+  #music-btn.playing { animation: pulse 2s ease-in-out infinite; opacity: 1; }
+  @keyframes pulse {
+    0%,100% { box-shadow: 0 4px 20px rgba(26,74,184,0.18); }
+    50%      { box-shadow: 0 4px 28px rgba(26,74,184,0.45); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  /* Each flower blooms in */
+  .fl { animation: flIn 0.9s cubic-bezier(.3,1.5,.6,1) both; }
+  .f1{animation-delay:.3s} .f2{animation-delay:.45s} .f3{animation-delay:.55s}
+  .f4{animation-delay:.65s} .f5{animation-delay:.5s}  .f6{animation-delay:.72s}
+  .f7{animation-delay:.4s}  .f8{animation-delay:.6s}  .f9{animation-delay:.38s}
+  @keyframes flIn {
+    from { opacity:0; transform: scale(0.1); }
+    to   { opacity:1; transform: scale(1); }
+  }
+  .sway { transform-origin: 50% 100%; animation: sway 5s ease-in-out infinite; }
+  @keyframes sway {
+    0%,100%{ transform:rotate(0deg); }
+    35%    { transform:rotate(1.2deg); }
+    70%    { transform:rotate(-1.2deg); }
+  }
+  .sp { animation: spAnim 3s ease-in-out infinite; opacity:0; }
+  @keyframes spAnim {
+    0%,100%{opacity:0;transform:scale(.3) rotate(0deg);}
+    50%    {opacity:1;transform:scale(1) rotate(180deg);}
+  }
+</style>
+</head>
+<body>
+<div class="petals-container" id="petals"></div>
+<div class="page">
+<div class="top-ornament">✦ &nbsp; Para Abdy &nbsp; ✦</div>
+
+
+<!-- Ramo de tulipanes -->
+<div style="opacity:0;animation:fadeUp 1s ease forwards 0.6s; margin: 4px 0 2px;">
+<svg viewBox="0 0 280 305" xmlns="http://www.w3.org/2000/svg" width="min(280px,82vw)" style="filter:drop-shadow(0 8px 28px rgba(20,60,160,0.16))">
+  <defs>
+    <linearGradient id="tc1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffc2d4"/><stop offset="50%" stop-color="#ff85a1"/><stop offset="100%" stop-color="#c9425f"/>
+    </linearGradient>
+    <linearGradient id="tc2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e0bbff"/><stop offset="50%" stop-color="#b46fe0"/><stop offset="100%" stop-color="#6b2fa0"/>
+    </linearGradient>
+    <linearGradient id="tc3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff8f2"/><stop offset="55%" stop-color="#f5e6d0"/><stop offset="100%" stop-color="#c8a878"/>
+    </linearGradient>
+    <linearGradient id="tc4" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d4aaff"/><stop offset="50%" stop-color="#8844cc"/><stop offset="100%" stop-color="#3d1a6e"/>
+    </linearGradient>
+    <linearGradient id="lg1" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4a9a1a"/><stop offset="100%" stop-color="#1e5a08"/>
+    </linearGradient>
+    <linearGradient id="lg2" x1="1" y1="0" x2="0" y2="0">
+      <stop offset="0%" stop-color="#4a9a1a"/><stop offset="100%" stop-color="#1e5a08"/>
+    </linearGradient>
+    <linearGradient id="lg3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#72c83a"/><stop offset="100%" stop-color="#2a7010"/>
+    </linearGradient>
+    <linearGradient id="twrap" x1="0.1" y1="0" x2="0.4" y2="1">
+      <stop offset="0%" stop-color="#fdf6ee"/><stop offset="55%" stop-color="#eddcc0"/><stop offset="100%" stop-color="#d0b48a"/>
+    </linearGradient>
+    <linearGradient id="tribbon" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0a2278"/><stop offset="45%" stop-color="#1e4ecc"/>
+      <stop offset="55%" stop-color="#3468f0"/><stop offset="100%" stop-color="#0a2278"/>
+    </linearGradient>
+  </defs>
+
+  <!-- TALLOS — todos convergen desde el centro del ramo -->
+  <line x1="140" y1="264" x2="140" y2="126" stroke="#3a7a10" stroke-width="2.8" stroke-linecap="round"/>
+  <line x1="140" y1="264" x2="124" y2="130" stroke="#3a7a10" stroke-width="2.6" stroke-linecap="round"/>
+  <line x1="140" y1="264" x2="156" y2="128" stroke="#3a7a10" stroke-width="2.6" stroke-linecap="round"/>
+  <line x1="140" y1="264" x2="108" y2="138" stroke="#4a8a18" stroke-width="2.4" stroke-linecap="round"/>
+  <line x1="140" y1="264" x2="172" y2="136" stroke="#4a8a18" stroke-width="2.4" stroke-linecap="round"/>
+  <line x1="140" y1="264" x2="92"  y2="148" stroke="#4a8a18" stroke-width="2.2" stroke-linecap="round"/>
+  <line x1="140" y1="264" x2="188" y2="146" stroke="#4a8a18" stroke-width="2.2" stroke-linecap="round"/>
+  <line x1="140" y1="264" x2="74"  y2="160" stroke="#5a9a20" stroke-width="2"   stroke-linecap="round"/>
+  <line x1="140" y1="264" x2="206" y2="158" stroke="#5a9a20" stroke-width="2"   stroke-linecap="round"/>
+  <line x1="140" y1="264" x2="58"  y2="172" stroke="#5a9a20" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="140" y1="264" x2="222" y2="170" stroke="#5a9a20" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="140" y1="264" x2="132" y2="112" stroke="#3a7a10" stroke-width="2.2" stroke-linecap="round"/>
+  <line x1="140" y1="264" x2="148" y2="110" stroke="#3a7a10" stroke-width="2.2" stroke-linecap="round"/>
+  <line x1="140" y1="264" x2="116" y2="120" stroke="#4a8a18" stroke-width="2"   stroke-linecap="round"/>
+  <line x1="140" y1="264" x2="164" y2="118" stroke="#4a8a18" stroke-width="2"   stroke-linecap="round"/>
+  <line x1="140" y1="264" x2="100" y2="132" stroke="#4a8a18" stroke-width="1.9" stroke-linecap="round"/>
+  <line x1="140" y1="264" x2="180" y2="130" stroke="#4a8a18" stroke-width="1.9" stroke-linecap="round"/>
+
+  <!-- HOJAS GRANDES (estilo tulipán real, anchas y curvadas) -->
+  <path d="M 130,238 C 92,218 74,184 84,156 C 102,172 120,208 130,236 Z" fill="url(#lg1)" opacity="0.93"/>
+  <path d="M 150,236 C 188,216 206,182 196,154 C 178,170 160,206 150,234 Z" fill="url(#lg2)" opacity="0.93"/>
+  <path d="M 120,226 C 86,208 72,176 80,152 C 96,166 112,196 120,224 Z"    fill="url(#lg3)" opacity="0.82"/>
+  <path d="M 160,224 C 194,206 208,174 200,150 C 184,164 168,194 160,222 Z" fill="url(#lg3)" opacity="0.82"/>
+  <!-- Hojas que se curvan hacia afuera -->
+  <path d="M 134,248 C 96,234 76,208 72,180 C 90,185 118,214 134,246 Z"    fill="#4aaa1a" opacity="0.72"/>
+  <path d="M 146,246 C 184,232 204,206 208,178 C 190,183 162,212 146,244 Z" fill="#4aaa1a" opacity="0.72"/>
+  <!-- Hojitas entre flores (añaden textura verde) -->
+  <path d="M 136,200 C 122,184 120,164 126,148 C 133,160 136,182 136,198 Z" fill="#5ab824" opacity="0.78"/>
+  <path d="M 144,198 C 158,182 160,162 154,146 C 147,158 144,180 144,196 Z" fill="#5ab824" opacity="0.78"/>
+  <path d="M 126,188 C 110,172 108,150 114,134 C 121,146 124,168 126,186 Z" fill="#3a8a14" opacity="0.65"/>
+  <path d="M 154,186 C 170,170 172,148 166,132 C 159,144 156,166 154,184 Z" fill="#3a8a14" opacity="0.65"/>
+  <!-- Hojitas pequeñas traseras -->
+  <path d="M 136,170 C 124,158 122,142 127,128 C 133,138 135,156 136,168 Z" fill="#2e7010" opacity="0.5"/>
+  <path d="M 144,168 C 156,156 158,140 153,126 C 147,136 145,154 144,166 Z" fill="#2e7010" opacity="0.5"/>
+
+  <!-- GYPSOPHILA (puntitos blancos/rosados en bordes) -->
+  <circle cx="44"  cy="178" r="4.2" fill="#ffe4f0" opacity="0.88"/>
+  <circle cx="34"  cy="169" r="3.2" fill="#ffffff" opacity="0.82"/>
+  <circle cx="52"  cy="167" r="2.8" fill="#ffccdd" opacity="0.78"/>
+  <circle cx="40"  cy="160" r="2.2" fill="#ffffff" opacity="0.72"/>
+  <circle cx="236" cy="176" r="4.2" fill="#ffe4f0" opacity="0.88"/>
+  <circle cx="246" cy="167" r="3.2" fill="#ffffff" opacity="0.82"/>
+  <circle cx="228" cy="165" r="2.8" fill="#ffccdd" opacity="0.78"/>
+  <circle cx="240" cy="158" r="2.2" fill="#ffffff" opacity="0.72"/>
+  <circle cx="128" cy="108" r="2.8" fill="#ffe4f0" opacity="0.82"/>
+  <circle cx="152" cy="106" r="2.8" fill="#ffe4f0" opacity="0.82"/>
+  <circle cx="140" cy="100" r="2.4" fill="#ffffff" opacity="0.75"/>
+
+  <!-- PAPEL ENVOLVENTE -->
+  <polygon points="72,288 208,288 232,232 208,180 140,194 72,180 48,232" fill="url(#twrap)" opacity="0.98"/>
+  <polygon points="74,286 140,194 137,286" fill="rgba(100,70,20,0.06)"/>
+  <polygon points="206,286 140,194 143,286" fill="rgba(255,255,255,0.14)"/>
+  <line x1="72"  y1="288" x2="140" y2="194" stroke="#b89050" stroke-width="0.9" opacity="0.28"/>
+  <line x1="208" y1="288" x2="140" y2="194" stroke="#b89050" stroke-width="0.9" opacity="0.28"/>
+  <polyline points="72,288 48,232 72,180 140,194 208,180 232,232 208,288" fill="none" stroke="#ecdbb8" stroke-width="1.4" opacity="0.7"/>
+  <circle cx="96"  cy="248" r="2.5" fill="rgba(140,100,40,0.09)"/>
+  <circle cx="116" cy="268" r="2"   fill="rgba(140,100,40,0.07)"/>
+  <circle cx="140" cy="238" r="1.8" fill="rgba(140,100,40,0.06)"/>
+  <circle cx="166" cy="252" r="2.5" fill="rgba(140,100,40,0.09)"/>
+  <circle cx="188" cy="236" r="2"   fill="rgba(140,100,40,0.07)"/>
+  <circle cx="200" cy="270" r="1.8" fill="rgba(140,100,40,0.06)"/>
+
+  <!-- LAZO ZAFIRO -->
+  <g transform="translate(140,210)">
+    <path d="M 0,0 C -38,-28 -52,-7 -30,12 C -14,24 0,8 0,0 Z" fill="url(#tribbon)" opacity="0.97"/>
+    <path d="M 0,0 C  38,-28  52,-7  30,12 C  14,24 0,8 0,0 Z" fill="url(#tribbon)" opacity="0.97"/>
+    <path d="M 0,0 C -38,-28 -52,-7 -30,12" stroke="rgba(0,8,60,0.18)" stroke-width="1.4" fill="none"/>
+    <path d="M 0,0 C -16,20 -13,40 -21,56" stroke="#0a2278" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+    <path d="M 0,0 C  16,20  13,40  21,56" stroke="#0a2278" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+    <ellipse cx="0" cy="0" rx="10"  ry="7.2" fill="#3468f0"/>
+    <ellipse cx="0" cy="0" rx="6"   ry="4.4" fill="#0a2278"/>
+    <path d="M -28,-13 C -36,-6 -38,2 -28,8" stroke="rgba(120,170,255,0.38)" stroke-width="2" fill="none"/>
+  </g>
+
+  <!-- ═══ 17 TULIPANES — 4 colores aesthetic ═══ -->
+  <!-- tc1=rosa pálido · tc2=malva · tc3=crema · tc4=lila oscuro -->
+
+  <!-- FILA MUY TRASERA (pequeñísimos, tapados casi todo, dan volumen) -->
+  <g transform="translate(132,107)">
+    <path d="M -1,2 C -9,0 -13,-12 -5,-24 C -2,-30 -1,-24 -1,-18 Z" fill="url(#tc2)"/>
+    <path d="M  1,2 C  9,0  13,-12  5,-24 C  2,-30  1,-24  1,-18 Z" fill="url(#tc2)"/>
+    <path d="M  0,2 C -5,1  -7,-11  0,-22 C  7,-11  5,1  0,2 Z"     fill="#cc88ff"/>
+    <path d="M -4,2 C -2,5  2,5  4,2 C 2,0 -2,0 -4,2 Z" fill="#3a0870"/>
+  </g>
+  <g transform="translate(140,104)">
+    <path d="M -1,2 C -9,0 -13,-12 -5,-24 C -2,-30 -1,-24 -1,-18 Z" fill="url(#tc1)"/>
+    <path d="M  1,2 C  9,0  13,-12  5,-24 C  2,-30  1,-24  1,-18 Z" fill="url(#tc1)"/>
+    <path d="M  0,2 C -5,1  -7,-11  0,-22 C  7,-11  5,1  0,2 Z"     fill="#ffaac4"/>
+    <path d="M -4,2 C -2,5  2,5  4,2 C 2,0 -2,0 -4,2 Z" fill="#6a1028"/>
+  </g>
+  <g transform="translate(148,107)">
+    <path d="M -1,2 C -9,0 -13,-12 -5,-24 C -2,-30 -1,-24 -1,-18 Z" fill="url(#tc3)"/>
+    <path d="M  1,2 C  9,0  13,-12  5,-24 C  2,-30  1,-24  1,-18 Z" fill="url(#tc3)"/>
+    <path d="M  0,2 C -5,1  -7,-11  0,-22 C  7,-11  5,1  0,2 Z"     fill="#fff6ec"/>
+    <path d="M -4,2 C -2,5  2,5  4,2 C 2,0 -2,0 -4,2 Z" fill="#7a5a30"/>
+  </g>
+
+  <!-- FILA TRASERA (pequeños) -->
+  <g transform="translate(116,116)">
+    <path d="M -1,3 C -12,0 -16,-15 -7,-29 C -3,-36 -1,-29 -1,-22 Z" fill="url(#tc4)"/>
+    <path d="M  1,3 C  12,0  16,-15  7,-29 C  3,-36  1,-29  1,-22 Z" fill="url(#tc4)"/>
+    <path d="M  0,3 C -6,1  -9,-14  0,-27 C  9,-14  6,1  0,3 Z"      fill="#b060ee"/>
+    <path d="M -5,3 C -2,7  2,7  5,3 C 2,0 -2,0 -5,3 Z" fill="#2a0850"/>
+  </g>
+  <g transform="translate(130,112)">
+    <path d="M -1,3 C -12,0 -16,-15 -7,-29 C -3,-36 -1,-29 -1,-22 Z" fill="url(#tc1)"/>
+    <path d="M  1,3 C  12,0  16,-15  7,-29 C  3,-36  1,-29  1,-22 Z" fill="url(#tc1)"/>
+    <path d="M  0,3 C -6,1  -9,-14  0,-27 C  9,-14  6,1  0,3 Z"      fill="#ffaac4"/>
+    <path d="M -5,3 C -2,7  2,7  5,3 C 2,0 -2,0 -5,3 Z" fill="#6a1028"/>
+  </g>
+  <g transform="translate(150,110)">
+    <path d="M -1,3 C -12,0 -16,-15 -7,-29 C -3,-36 -1,-29 -1,-22 Z" fill="url(#tc2)"/>
+    <path d="M  1,3 C  12,0  16,-15  7,-29 C  3,-36  1,-29  1,-22 Z" fill="url(#tc2)"/>
+    <path d="M  0,3 C -6,1  -9,-14  0,-27 C  9,-14  6,1  0,3 Z"      fill="#cc88ff"/>
+    <path d="M -5,3 C -2,7  2,7  5,3 C 2,0 -2,0 -5,3 Z" fill="#3a0870"/>
+  </g>
+  <g transform="translate(164,116)">
+    <path d="M -1,3 C -12,0 -16,-15 -7,-29 C -3,-36 -1,-29 -1,-22 Z" fill="url(#tc3)"/>
+    <path d="M  1,3 C  12,0  16,-15  7,-29 C  3,-36  1,-29  1,-22 Z" fill="url(#tc3)"/>
+    <path d="M  0,3 C -6,1  -9,-14  0,-27 C  9,-14  6,1  0,3 Z"      fill="#fff6ec"/>
+    <path d="M -5,3 C -2,7  2,7  5,3 C 2,0 -2,0 -5,3 Z" fill="#7a5a30"/>
+  </g>
+
+  <!-- FILA MEDIA -->
+  <g transform="translate(100,133)">
+    <path d="M -2,4 C -16,0 -22,-21 -9,-41 C -4,-50 -2,-41 -2,-31 Z" fill="url(#tc1)"/>
+    <path d="M  2,4 C  16,0  22,-21  9,-41 C  4,-50  2,-41  2,-31 Z" fill="url(#tc1)"/>
+    <path d="M  0,4 C -8,2 -11,-19  0,-39 C 11,-19  8,2  0,4 Z"       fill="#ffaac4"/>
+    <path d="M -8,4 C -4,9  4,9  8,4 C 4,1 -4,1 -8,4 Z" fill="#6a1028"/>
+  </g>
+  <g transform="translate(118,127)">
+    <path d="M -2,4 C -16,0 -22,-21 -9,-41 C -4,-50 -2,-41 -2,-31 Z" fill="url(#tc2)"/>
+    <path d="M  2,4 C  16,0  22,-21  9,-41 C  4,-50  2,-41  2,-31 Z" fill="url(#tc2)"/>
+    <path d="M  0,4 C -8,2 -11,-19  0,-39 C 11,-19  8,2  0,4 Z"       fill="#cc88ff"/>
+    <path d="M -8,4 C -4,9  4,9  8,4 C 4,1 -4,1 -8,4 Z" fill="#3a0870"/>
+  </g>
+  <g transform="translate(162,125)">
+    <path d="M -2,4 C -16,0 -22,-21 -9,-41 C -4,-50 -2,-41 -2,-31 Z" fill="url(#tc4)"/>
+    <path d="M  2,4 C  16,0  22,-21  9,-41 C  4,-50  2,-41  2,-31 Z" fill="url(#tc4)"/>
+    <path d="M  0,4 C -8,2 -11,-19  0,-39 C 11,-19  8,2  0,4 Z"       fill="#b060ee"/>
+    <path d="M -8,4 C -4,9  4,9  8,4 C 4,1 -4,1 -8,4 Z" fill="#2a0850"/>
+  </g>
+  <g transform="translate(180,131)">
+    <path d="M -2,4 C -16,0 -22,-21 -9,-41 C -4,-50 -2,-41 -2,-31 Z" fill="url(#tc3)"/>
+    <path d="M  2,4 C  16,0  22,-21  9,-41 C  4,-50  2,-41  2,-31 Z" fill="url(#tc3)"/>
+    <path d="M  0,4 C -8,2 -11,-19  0,-39 C 11,-19  8,2  0,4 Z"       fill="#fff6ec"/>
+    <path d="M -8,4 C -4,9  4,9  8,4 C 4,1 -4,1 -8,4 Z" fill="#7a5a30"/>
+  </g>
+
+  <!-- FILA DELANTERA (los más grandes) -->
+  <g transform="translate(82,148)">
+    <path d="M -2,4 C -17,0 -24,-23 -10,-44 C -4,-54 -2,-44 -2,-33 Z" fill="url(#tc2)"/>
+    <path d="M  2,4 C  17,0  24,-23  10,-44 C  4,-54  2,-44  2,-33 Z" fill="url(#tc2)"/>
+    <path d="M  0,4 C -9,2 -12,-21  0,-42 C 12,-21  9,2  0,4 Z"       fill="#cc88ff"/>
+    <path d="M -9,4 C -4,10  4,10  9,4 C 4,1 -4,1 -9,4 Z" fill="#3a0870"/>
+  </g>
+  <g transform="translate(108,138)">
+    <path d="M -2,4 C -17,0 -24,-23 -10,-44 C -4,-54 -2,-44 -2,-33 Z" fill="url(#tc1)"/>
+    <path d="M  2,4 C  17,0  24,-23  10,-44 C  4,-54  2,-44  2,-33 Z" fill="url(#tc1)"/>
+    <path d="M  0,4 C -9,2 -12,-21  0,-42 C 12,-21  9,2  0,4 Z"       fill="#ffaac4"/>
+    <path d="M -9,4 C -4,10  4,10  9,4 C 4,1 -4,1 -9,4 Z" fill="#6a1028"/>
+  </g>
+  <g transform="translate(140,122)"><!-- CENTRO — el más alto -->
+    <path d="M -2,5 C -21,0 -29,-29 -12,-56 C -5,-68 -2,-56 -2,-41 Z" fill="url(#tc1)"/>
+    <path d="M  2,5 C  21,0  29,-29  12,-56 C  5,-68  2,-56  2,-41 Z" fill="url(#tc1)"/>
+    <path d="M  0,5 C -11,2 -15,-27  0,-54 C 15,-27 11,2  0,5 Z"      fill="#ffaac4"/>
+    <path d="M -1,3 C -12,0 -16,-21  -6,-43 C -2,-53 -1,-43 -1,-32 Z" fill="#e84080" opacity="0.5"/>
+    <path d="M  1,3 C  12,0  16,-21   6,-43 C  2,-53  1,-43  1,-32 Z" fill="#e84080" opacity="0.5"/>
+    <path d="M -11,5 C -5,13  5,13 11,5 C 5,1 -5,1 -11,5 Z" fill="#6a1028"/>
+  </g>
+  <g transform="translate(172,136)">
+    <path d="M -2,4 C -17,0 -24,-23 -10,-44 C -4,-54 -2,-44 -2,-33 Z" fill="url(#tc4)"/>
+    <path d="M  2,4 C  17,0  24,-23  10,-44 C  4,-54  2,-44  2,-33 Z" fill="url(#tc4)"/>
+    <path d="M  0,4 C -9,2 -12,-21  0,-42 C 12,-21  9,2  0,4 Z"       fill="#b060ee"/>
+    <path d="M -9,4 C -4,10  4,10  9,4 C 4,1 -4,1 -9,4 Z" fill="#2a0850"/>
+  </g>
+  <g transform="translate(198,143)">
+    <path d="M -2,4 C -17,0 -24,-23 -10,-44 C -4,-54 -2,-44 -2,-33 Z" fill="url(#tc3)"/>
+    <path d="M  2,4 C  17,0  24,-23  10,-44 C  4,-54  2,-44  2,-33 Z" fill="url(#tc3)"/>
+    <path d="M  0,4 C -9,2 -12,-21  0,-42 C 12,-21  9,2  0,4 Z"       fill="#fff6ec"/>
+    <path d="M -9,4 C -4,10  4,10  9,4 C 4,1 -4,1 -9,4 Z" fill="#7a5a30"/>
+  </g>
+
+</svg>
+</div>
+
+<!-- Title -->
+<div class="title-block">
+  <h1 class="title-main">Feliz Día<br><span>de la Mujer</span></h1>
+</div>
+
+<!-- Divider -->
+<div class="divider">
+  <div class="divider-line"></div>
+  <div class="divider-diamond"></div>
+  <div class="divider-line right"></div>
+</div>
+
+<!-- Message -->
+<div class="message-card">
+  <p class="message-text">
+    Admiro tu fuerza, tu voluntad y tu personalidad,<br>
+    tu presencia genera luz.<br><br>
+    <em>Gracias por existir.</em><br><br>
+    Pásala bien este día, mándale un saludo<br>
+    y fuerte abrazo a tu mamá y a tu hermana<br>
+    de mi parte. 💙
+  </p>
+</div>
+
+<!-- Date -->
+<div class="date-badge">
+  <div class="date-dot"></div>
+  Marzo · 2026
+  <div class="date-dot"></div>
+</div>
+
+<!-- Audio local -->
+<audio id="bg-audio" loop preload="auto">
+  <source src="Cuando_Estás_Aquí.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Music button -->
+<button id="music-btn" title="Música" aria-label="Reproducir música">
+  <span id="music-icon">♪</span>
+</button>
+
+</div>
+
+<script>
+  // Falling petals
+  const container = document.getElementById('petals');
+  const cols = ['#ffaabb','#ff88aa','#ffd0dd','#dd6699aa','#ffddee','#ffffff99','#cc99ffaa','#ffe0cc88','#99ccffaa'];
+  for (let i = 0; i < 36; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    const left = Math.random() * 100;
+    const size = 10 + Math.random() * 20;
+    const dur  = 9  + Math.random() * 14;
+    const del  = Math.random() * 20;
+    const col  = cols[Math.floor(Math.random() * cols.length)];
+    p.style.left = left + 'vw';
+    p.style.animationDuration = dur + 's';
+    p.style.animationDelay    = del + 's';
+    p.innerHTML = `<svg width="${size}" height="${size*1.4}" viewBox="0 0 ${size} ${size*1.4}">
+      <ellipse cx="${size/2}" cy="${size*.68}" rx="${size*.42}" ry="${size*.68}" fill="${col}"/></svg>`;
+    container.appendChild(p);
+  }
+
+  // Music — archivo local musica.mp3
+  const audio = document.getElementById('bg-audio');
+  const btn   = document.getElementById('music-btn');
+  const icon  = document.getElementById('music-icon');
+  let playing = false;
+
+  function toggleMusic() {
+    if (!playing) {
+      audio.play();
+      btn.classList.add('playing');
+      icon.textContent = '♫';
+      playing = true;
+    } else {
+      audio.pause();
+      btn.classList.remove('playing');
+      icon.textContent = '♪';
+      playing = false;
+    }
+  }
+
+  btn.addEventListener('click', toggleMusic);
+
+  // Intenta reproducir automáticamente al cargar
+  function autoplay() {
+    audio.play().then(() => {
+      btn.classList.add('playing');
+      icon.textContent = '♫';
+      playing = true;
+    }).catch(() => {
+      // El navegador bloqueó el autoplay — espera el primer toque
+      document.addEventListener('click', function go() {
+        if (!playing) toggleMusic();
+        document.removeEventListener('click', go);
+      }, { once: true });
+      document.addEventListener('touchstart', function go() {
+        if (!playing) toggleMusic();
+        document.removeEventListener('touchstart', go);
+      }, { once: true });
+    });
+  }
+
+  window.addEventListener('load', autoplay);
+</script>
+</body>
+</html>
